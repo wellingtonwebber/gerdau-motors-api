@@ -13,21 +13,21 @@ export async function getMotor(app: FastifyInstance) {
                     motorId: z.string().uuid(),
                 }),
                 response: {
-                    200: {
-                        motor:  z.object({
-                            id: z.string().uuid(),
-                            code: z.string(),
-                            manufacturer: z.string().nullable(),
-                            power: z.number().positive(),
-                            voltage: z.number().int().positive(),
-                            current: z.number().positive(),
-                            rpm: z.number().int().positive(),
-                            frame: z.string().nullable(),
-                            type: z.string().nullable(),
-                            model: z.string().nullable(),
-                            status: z.string()
-                        })
-                    }
+                    // 200: {
+                    //     motor:  z.object({
+                    //         id: z.string().uuid(),
+                    //         code: z.string(),
+                    //         manufacturer: z.string().nullable(),
+                    //         power: z.number().positive(),
+                    //         voltage: z.number().int().positive(),
+                    //         current: z.number().positive(),
+                    //         rpm: z.number().int().positive(),
+                    //         frame: z.string().nullable(),
+                    //         type: z.string().nullable(),
+                    //         model: z.string().nullable(),
+                    //         status: z.string()
+                    //     })
+                    // }
                 }
             }
         }, async (request, reply) => {
