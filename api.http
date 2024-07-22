@@ -2,5 +2,19 @@ POST http://localhost:3333/motors
 Content-Type: application/json
 
 {
-    
+    "code": "12092354",
+    "manufacturer": "weg",
+    "power": 30,
+    "voltage": 380,
+    "current": 22.5,
+    "rpm": 1780,
+    "frame": "180M",
+    "type": "AC",
+    "model": "W22",
+    "status": "Pronto"
 }
+
+###
+
+GET http://localhost:3333/motor/dea21159-b870-4712-8e69-5c23a7a5b9fb
+

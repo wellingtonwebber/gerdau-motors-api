@@ -14,6 +14,7 @@ model Motor {
   id           String  @id @default(uuid())
   code         String  @unique
   manufacturer String?
+  power        Float   @default(0)
   voltage      Int
   current      Float
   rpm          Int

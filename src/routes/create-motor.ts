@@ -11,6 +11,7 @@ export async function createMotor(app: FastifyInstance){
                 body: z.object({
                     code: z.string(),
                     manufacturer: z.string().nullable(),
+                    power: z.number().positive(),
                     voltage: z.number().int().positive(),
                     current: z.number().positive(),
                     rpm: z.number().int().positive(),
@@ -44,6 +45,7 @@ export async function createMotor(app: FastifyInstance){
                 data: {
                     code: data.code,
                     manufacturer: data.manufacturer,
+                    power: data.power,
                     voltage: data.voltage,
                     current: data.current,
                     rpm: data.rpm,
