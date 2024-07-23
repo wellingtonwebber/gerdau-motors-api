@@ -25,7 +25,7 @@ export async function getMotor(app: FastifyInstance) {
                             frame: z.string().nullable(),
                             type: z.string().nullable(),
                             model: z.string().nullable(),
-                            status: z.string()
+                            statusId: z.number().int().positive()
                         })
                     }),
                 }

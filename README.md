@@ -2,7 +2,7 @@
 
 O motors é uma aplicação de **gestão de motores em um ambiente industrial**.
 
-A ferramenta permite que o organizador cadastre um motor e abra uma página pública de consulta.
+A ferramenta permite que o usuário cadastre um motor e abra uma página pública de consulta.
 
 Os usuários logados podem realizar transações para movimentação interna ou enviar e receber motores de serviços externos.
 
@@ -42,27 +42,97 @@ Nessa aplicação vamos utilizar banco de dados relacional (SQL). Para ambiente 
 
 ### Diagrama ERD
 
-<img src="github\gmc-transparent.svg" width="600" alt="Diagrama ERD do banco de dados" style="display: block; margin: 0 auto"/>
+<img src="github\gmc-white.svg" width="600" alt="Diagrama ERD do banco de dados" style="display: block; margin: 0 auto"/>
 
 ### Estrutura do banco (SQL)
 
 ```sql
 -- CreateTable
-
+CREATE TABLE "motors" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "code" TEXT NOT NULL,
+    "manufacturer" TEXT,
+    "power" REAL NOT NULL DEFAULT 0,
+    "voltage" INTEGER NOT NULL,
+    "current" REAL NOT NULL,
+    "rpm" INTEGER NOT NULL,
+    "frame" TEXT,
+    "type" TEXT,
+    "model" TEXT,
+    "status_id" INTEGER NOT NULL DEFAULT 0,
+    CONSTRAINT "motors_status_id_fkey" FOREIGN KEY ("status_id") REFERENCES "status" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
 
 -- CreateTable
-
+CREATE TABLE "users" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "personal_number" INTEGER NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL
+);
 
 -- CreateTable
+CREATE TABLE "areas" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "center" INTEGER NOT NULL,
+    "name" TEXT NOT NULL
+);
 
+-- CreateTable
+CREATE TABLE "sectors" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "status" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "status" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "partners" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "code" INTEGER NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone_number" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "locations" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "code" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "services" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "service_tag" TEXT NOT NULL,
+    "price" REAL NOT NULL,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "service-status" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "status" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "movements" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 -- CreateIndex
-
-
--- CreateIndex
-
+CREATE UNIQUE INDEX "motors_code_key" ON "motors"("code");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "partners_email_key" ON "partners"("email");
 
 ```
 

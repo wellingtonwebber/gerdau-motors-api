@@ -21,7 +21,81 @@ model Motor {
   frame        String?
   type         String?
   model        String?
-  status       String
+  statusId     Int     @default(0) @map("status_id")
+
+  status Status @relation(fields: [statusId], references: [id])
 
   @@map("motors")
+}
+
+model User {
+  id              String @id @default(uuid())
+  name            String
+  personal_number Int
+  email           String @unique
+  password        String
+
+  @@map("users")
+}
+
+model Area {
+  id     Int    @id @default(autoincrement())
+  center Int
+  name   String
+
+  @@map("areas")
+}
+
+model Sector {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  @@map("sectors")
+}
+
+model Location {
+  id   Int    @id @default(autoincrement())
+  code String
+
+  @@map("locations")
+}
+
+model Status {
+  id     Int     @id @default(autoincrement())
+  status String
+  Motor  Motor[]
+
+  @@map("status")
+}
+
+model Partner {
+  id           Int    @id @default(autoincrement())
+  code         Int
+  email        String @unique
+  phone_number String
+
+  @@map("partners")
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  service_tag String
+  price       Float
+  created_at  DateTime @default(now())
+
+  @@map("services")
+}
+
+model ServiceStatus {
+  id     Int    @id @default(autoincrement())
+  status String
+
+  @@map("service-status")
+}
+
+model Movement {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+
+  @@map("movements")
 }

@@ -18,7 +18,7 @@ export async function createMotor(app: FastifyInstance){
                     frame: z.string().nullable(),
                     type: z.string().nullable(),
                     model: z.string().nullable(),
-                    status: z.string()
+                    statusId: z.number().int().positive()
                 }),
                 response: {
                     201: z.object({
@@ -52,7 +52,7 @@ export async function createMotor(app: FastifyInstance){
                     frame: data.frame,
                     type: data.type,
                     model: data.model,
-                    status: data.status
+                    statusId: data.statusId
                 }
             })
 

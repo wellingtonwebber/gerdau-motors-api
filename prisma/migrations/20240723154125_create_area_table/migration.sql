@@ -1,0 +1,6 @@
+-- CreateTable
+CREATE TABLE "Area" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "center" INTEGER NOT NULL,
+    "name" TEXT NOT NULL
+);
