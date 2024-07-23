@@ -22,8 +22,12 @@ model Motor {
   type         String?
   model        String?
   statusId     Int     @default(0) @map("status_id")
+  locationId   Int     @default(0) @map("location_id")
 
-  status Status @relation(fields: [statusId], references: [id])
+  status   Status     @relation(fields: [statusId], references: [id])
+  location Location   @relation(fields: [locationId], references: [id])
+  Service  Service[]
+  Movement Movement[]
 
   @@map("motors")
 }
@@ -34,28 +38,43 @@ model User {
   personal_number Int
   email           String @unique
   password        String
+  areaId          Int    @map("area_id")
+
+  area     Area       @relation(fields: [areaId], references: [id])
+  Service  Service[]
+  Movement Movement[]
 
   @@map("users")
 }
 
 model Area {
-  id     Int    @id @default(autoincrement())
+  id     Int      @id @default(autoincrement())
   center Int
   name   String
+  User   User[]
+  Sector Sector[]
 
   @@map("areas")
 }
 
 model Sector {
-  id   Int    @id @default(autoincrement())
-  name String
+  id     Int    @id @default(autoincrement())
+  name   String
+  areaId Int    @map("area_id")
+
+  area     Area       @relation(fields: [areaId], references: [id])
+  Location Location[]
 
   @@map("sectors")
 }
 
 model Location {
-  id   Int    @id @default(autoincrement())
-  code String
+  id       Int    @id @default(autoincrement())
+  code     String
+  sectorId Int    @map("sector_id")
+
+  sector Sector  @relation(fields: [sectorId], references: [id])
+  Motor  Motor[]
 
   @@map("locations")
 }
@@ -69,26 +88,37 @@ model Status {
 }
 
 model Partner {
-  id           Int    @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   code         Int
-  email        String @unique
+  email        String    @unique
   phone_number String
+  Service      Service[]
 
   @@map("partners")
 }
 
 model Service {
-  id          Int      @id @default(autoincrement())
-  service_tag String
-  price       Float
-  created_at  DateTime @default(now())
+  id              Int      @id @default(autoincrement())
+  service_tag     String
+  price           Float
+  created_at      DateTime @default(now())
+  motorId         String   @map("motor_id")
+  userId          String   @map("user_id")
+  partnerId       Int      @map("partner_id")
+  serviceStatusId Int      @map("service_status_id")
+
+  user          User          @relation(fields: [userId], references: [id])
+  motor         Motor         @relation(fields: [motorId], references: [id])
+  partner       Partner       @relation(fields: [partnerId], references: [id])
+  serviceStatus ServiceStatus @relation(fields: [serviceStatusId], references: [id])
 
   @@map("services")
 }
 
 model ServiceStatus {
-  id     Int    @id @default(autoincrement())
-  status String
+  id      Int       @id @default(autoincrement())
+  status  String
+  Service Service[]
 
   @@map("service-status")
 }
@@ -96,6 +126,11 @@ model ServiceStatus {
 model Movement {
   id         Int      @id @default(autoincrement())
   created_at DateTime @default(now())
+  userId     String   @map("user_id")
+  motorId    String   @map("motor_id")
+
+  user  User  @relation(fields: [userId], references: [id])
+  motor Motor @relation(fields: [motorId], references: [id])
 
   @@map("movements")
 }

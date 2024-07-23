@@ -60,7 +60,9 @@ CREATE TABLE "motors" (
     "type" TEXT,
     "model" TEXT,
     "status_id" INTEGER NOT NULL DEFAULT 0,
-    CONSTRAINT "motors_status_id_fkey" FOREIGN KEY ("status_id") REFERENCES "status" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "location_id" INTEGER NOT NULL DEFAULT 0,
+    CONSTRAINT "motors_status_id_fkey" FOREIGN KEY ("status_id") REFERENCES "status" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "motors_location_id_fkey" FOREIGN KEY ("location_id") REFERENCES "locations" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -69,7 +71,9 @@ CREATE TABLE "users" (
     "name" TEXT NOT NULL,
     "personal_number" INTEGER NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL
+    "password" TEXT NOT NULL,
+    "area_id" INTEGER NOT NULL,
+    CONSTRAINT "users_area_id_fkey" FOREIGN KEY ("area_id") REFERENCES "areas" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -82,7 +86,9 @@ CREATE TABLE "areas" (
 -- CreateTable
 CREATE TABLE "sectors" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL,
+    "area_id" INTEGER NOT NULL,
+    CONSTRAINT "sectors_area_id_fkey" FOREIGN KEY ("area_id") REFERENCES "areas" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -102,7 +108,9 @@ CREATE TABLE "partners" (
 -- CreateTable
 CREATE TABLE "locations" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "code" TEXT NOT NULL
+    "code" TEXT NOT NULL,
+    "sector_id" INTEGER NOT NULL,
+    CONSTRAINT "locations_sector_id_fkey" FOREIGN KEY ("sector_id") REFERENCES "sectors" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -110,7 +118,15 @@ CREATE TABLE "services" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "service_tag" TEXT NOT NULL,
     "price" REAL NOT NULL,
-    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "motor_id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "partner_id" INTEGER NOT NULL,
+    "service_status_id" INTEGER NOT NULL,
+    CONSTRAINT "services_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "services_motor_id_fkey" FOREIGN KEY ("motor_id") REFERENCES "motors" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "services_partner_id_fkey" FOREIGN KEY ("partner_id") REFERENCES "partners" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "services_service_status_id_fkey" FOREIGN KEY ("service_status_id") REFERENCES "service-status" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -122,7 +138,11 @@ CREATE TABLE "service-status" (
 -- CreateTable
 CREATE TABLE "movements" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "user_id" TEXT NOT NULL,
+    "motor_id" TEXT NOT NULL,
+    CONSTRAINT "movements_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "movements_motor_id_fkey" FOREIGN KEY ("motor_id") REFERENCES "motors" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
