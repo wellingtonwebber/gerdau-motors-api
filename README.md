@@ -157,3 +157,9 @@ CREATE UNIQUE INDEX "partners_email_key" ON "partners"("email");
 ```
 
 ### Instruções para rodar o projeto
+
+npm install - para instalar as dependencias
+npx prisma migrate dev - para aplicar as migrations do banco de dados
+npx prisma migrate status - para verificar se o schema do banco está atualizado
+npm run dev - para rodar o servidor http://localhost:3333
+
