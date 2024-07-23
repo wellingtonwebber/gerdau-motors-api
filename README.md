@@ -42,8 +42,7 @@ Nessa aplicação vamos utilizar banco de dados relacional (SQL). Para ambiente 
 
 ### Diagrama ERD
 
-<img src="github\gmc-transparent.svg" width="600" alt="Diagrama ERD do banco de dados" />
-
+<img src="github\gmc-transparent.svg" width="600" alt="Diagrama ERD do banco de dados" style="display: block; margin: 0 auto"/>
 
 ### Estrutura do banco (SQL)
 
