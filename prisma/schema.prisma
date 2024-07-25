@@ -21,7 +21,7 @@ model Motor {
   frame        String?
   type         String?
   model        String?
-  statusId     Int     @default(0) @map("status_id")
+  statusId     Int    @default(0) @map("status_id")
   locationId   Int     @default(0) @map("location_id")
 
   status   Status     @relation(fields: [statusId], references: [id])
