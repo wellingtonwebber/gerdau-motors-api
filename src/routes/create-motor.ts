@@ -8,19 +8,19 @@ export async function createMotor(app: FastifyInstance){
         .withTypeProvider<ZodTypeProvider>()
         .post('/motors', {
             schema: {
-                body: z.object({
-                    code: z.string(),
-                    manufacturer: z.string().nullable(),
-                    power: z.number().positive(),
-                    voltage: z.number().int().positive(),
-                    current: z.number().positive(),
-                    rpm: z.number().int().positive(),
-                    frame: z.string().nullable(),
-                    type: z.string().nullable(),
-                    model: z.string().nullable(),
-                    statusId: z.number().int().positive(),
-                    locationId: z.number().int().positive()
-                }),
+                    body: z.object({
+                        code: z.string(),
+                        manufacturer: z.string().nullable(),
+                        power: z.number().positive(),
+                        voltage: z.number().int().positive(),
+                        current: z.number().positive(),
+                        rpm: z.number().int().positive(),
+                        frame: z.string().nullable(),
+                        type: z.string().nullable(),
+                        model: z.string().nullable(),
+                        statusId: z.number().int().positive(),
+                        locationId: z.number().int().positive()
+                    }),
                 response: {
                     201: z.object({
                         motorId: z.string().uuid()
@@ -29,6 +29,8 @@ export async function createMotor(app: FastifyInstance){
             }
 
         }, async (request, reply) => {
+
+            console.log(request.body)
 
             const data = request.body
 
