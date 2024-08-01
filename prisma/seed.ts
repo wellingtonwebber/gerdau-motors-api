@@ -92,49 +92,6 @@ async function seed() {
         })
     })
 
-    // areas.forEach( async area => {
-    //     await prisma.area.create({
-    //         data:{
-    //             center: 1402,
-    //             name: area
-    //         }
-    //     })
-    // })
-
-    // sectors.forEach( async (sector, index) => {
-    //     await prisma.sector.create({
-    //         data: {
-    //             name: sector,
-    //             area: {
-    //                 connect: {
-    //                   id: index + 1
-    //                 }
-    //             },
-    //         }
-    //     })
-    // })
-
-    // locations.forEach( async (location, index) => {
-    //     await prisma.location.create({
-    //         data: {
-    //             code: location,
-    //             sector: {
-    //                 connect: {
-    //                   id: index + 1
-    //                 }
-    //             },
-    //         }
-    //     })
-    // })
-
-    // status.forEach( async value => {
-    //     await prisma.status.create({
-    //         data: {
-    //             status: value,
-    //         }
-    //     })
-    // })
-
     const array = Array.from({ length: 20 }, () => {     
         return {
             code: generateUniqueCode(),
@@ -164,58 +121,6 @@ async function seed() {
             data: value
         })
     })
-
-    // await prisma.motor.createMany({
-    //     data: array.map((item) => {
-    //         return {
-    //             code: generateUniqueCode(),
-    //             manufacturer: 'WEG',
-    //             power: 30,
-    //             voltage: 380,
-    //             current: 48.7,
-    //             rpm: 1720,
-    //             frame: '180M',
-    //             type: 'W22',
-    //             model: 'a493',
-    //             status: {
-    //                 connect: {
-    //                   id: getRandomIndexFromArray(status) + 1
-    //                 }
-    //             },
-    //             location: {
-    //                 connect: {
-    //                   id: getRandomIndexFromArray(locations) + 1
-    //                 }
-    //             }
-    //         }
-    //     })
-    // })
-
-    // const motores = new Array(20).map( async () => {
-    //     await prisma.motor.create({
-    //         data: {
-    //             code: generateUniqueCode(),
-    //             manufacturer: 'WEG',
-    //             power: 30,
-    //             voltage: 380,
-    //             current: 48.7,
-    //             rpm: 1720,
-    //             frame: '180M',
-    //             type: 'W22',
-    //             model: 'a493',
-    //             status: {
-    //                 connect: {
-    //                   id: getRandomIndexFromArray(status) + 1
-    //                 }
-    //             },
-    //             location: {
-    //                 connect: {
-    //                   id: getRandomIndexFromArray(locations) + 1
-    //                 }
-    //             }
-    //         }
-    //     })
-    // })
 }
 
 seed().then(() => {
