@@ -10,6 +10,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "description": "",
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
