@@ -55,8 +55,16 @@ export async function createMotor(app: FastifyInstance){
                     frame: data.frame,
                     type: data.type,
                     model: data.model,
-                    statusId: data.statusId,
-                    locationId: data.locationId
+                    status: {
+                        connect: {
+                          id: data.statusId
+                        }
+                    },
+                    location: {
+                        connect: {
+                          id: data.locationId
+                        }
+                    }
                 }
             })
 
